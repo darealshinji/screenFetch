@@ -1,0 +1,23 @@
+# logo was actually taken from BTX loader
+if [[ "$no_color" != "1" ]]; then
+    c1=$(getColor 'light blue') # Light Blue
+fi
+if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; fi
+startline="0"
+fulloutput=(
+    "                         %s"  # Name
+"${c1}         ,gggg,gg       %s"  # OS
+"${c1}        dP*  *Y8I       %s"  # Kernel
+"${c1}       i8'    ,8I       %s"  # Uptime
+"${c1}      ,d8,   ,d8I       %s"  # Packages
+"${c1}      P*Y8888P*888      %s"  # Shell
+"${c1}             ,d8I'      %s"  # Resolution
+"${c1}           ,dP'8I       %s"  # DE
+"${c1}          ,8*  8I       %s"  # WM
+"${c1}          I8   8I       %s"  # GTK Theme
+"${c1}          '8, ,8I       %s"  # Icon Theme
+"${c1}           'Y8P*        %s"  # Font
+     "                        %s"  # CPU
+     "                        %s"  # GPU
+     "                        %s"  # RAM
+)

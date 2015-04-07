@@ -1,0 +1,25 @@
+if [[ "$no_color" != "1" ]]; then
+	c1=$(getColor 'light red') # Light
+	c2=$(getColor 'red') # Dark
+fi
+if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; c2="${my_lcolor}"; fi
+startline="1"
+fulloutput=("${c1}                   -\`"
+"${c1}                  .o+\`                 %s"
+"${c1}                 \`ooo/                %s"
+"${c1}                \`+oooo:               %s"
+"${c1}               \`+oooooo:              %s"
+"${c1}               -+oooooo+:             %s"
+"${c1}             \`/:-:++oooo+:            %s"
+"${c1}            \`/++++/+++++++:           %s"
+"${c1}           \`/++++++++++++++:          %s"
+"${c1}          \`/+++o"${c2}",ooooooo"${c1}"oooo/\`        %s"
+"${c2}         "${c1}"./"${c2}"oos, sso+++osss,\\s"${c1}"+\`       %s"
+"${c2}        .oosss  -\`\`\`\`\`\`/o,  ;ss+\`      %s"
+"${c2}       -osssso.            /ssso.     %s"
+"${c2}      :ossssss/          +ssso+++.    %s"
+"${c2}     /ossssssss/        +ssssooo/-    %s"
+"${c2}   \`/osssssso+/:-       -:/+osssso+-  %s"
+"${c2}  \`+sso+:-\`                 \`.-/+oso: %s"
+"${c2} \`++:.                           \`-/+/%s"
+"${c2} .\`                                 \`/%s")

@@ -1,0 +1,26 @@
+if [[ "$no_color" != "1" ]]; then
+    c1=$(getColor 'light red')
+    c2=$(getColor 'orange')
+    c3=$(getColor 'light grey')
+fi
+if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; c2="${my_lcolor}"; c3="${my_lcolor}"; fi
+startline="0"
+fulloutput=(
+"${c1}                      .                 %s"
+"${c1}                    .d.       ,        %s"
+"${c1}               ..;cxkx       cx        %s"
+"${c1}          .,:oxkkkkkl${c3},,,,,${c1},xkkk.       %s"
+"${c1}       ;oxkkkdkkxl:${c3},,,${c1},:okkkkkk.       %s"
+"${c1}    .lkkkkkdokl${c3},,,${c1},:lxkkkkkkkkk.       %s"
+"${c1}   ,kkkkkkd${c2}l${c1}d${c3},,${c1}cokkkkkxOkkkkkko.       %s"
+"${c1}  .kkxxkkd${c2}ll${c1}kkkkkkkkd${c2}l${c1}dkkkkkkx'${c3},,${c1}.;od' %s"
+"${c1}  dkkx${c2}l${c1}xx${c2}lll${c1}xkkkkkx${c2}lll${c1}dkkkkkx'${c3},,${c1}ckko   %s"
+"${c1}  kkk${c2}lll${c1}o${c2}lll${c1}okkkk${c2}dllll${c1}okkkkl${c3},,${c1},xkko    %s"
+"${c1}  dk${c2}lllllllll${c1}dkkx${c2}llllll${c1}dxl${c3},,${c1},okkkk,    %s"
+"${c2}  ;${c2}lllllllllll${c1}dko${c2}lllllj${c3},,,${c1},lkkkkkk     %s"
+"${c2}   clllllllllll${c1}dd${c2}l:${c3},,,,${c1},:cll${c1}oxkkk'     %s"
+"${c1}    :o${c2}llllllllll${c1}od${c2}llllllllllll${c1}Ok'      %s"
+"${c1}     \`ok${c2}llllllllll${c1}x${c2}llllllllll${c1}ol'       %s"
+"${c1}       \`c${c2}llllllllll${c1}d${c2}dllllll:'          %s"
+"${c2}          \`'cllllllo${c1}Ok${c2}dcl'             %s"
+"${c2}               \`''''                   %s")
