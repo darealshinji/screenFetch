@@ -2108,6 +2108,8 @@ asciiText () {
 	else myascii="${distro}"; fi
 	case ${myascii} in
 		"custom") source "$art" ;;
+
+#@ASCII_ARTS_BEGIN@
 		"Arch Linux - Old")
 			if [[ "$no_color" != "1" ]]; then
 				c1=$(getColor 'white') # White
@@ -3653,6 +3655,7 @@ asciiText () {
 "${c1}                   '                   %s")
 		;;
 
+#@ASCII_ARTS_END@
 		*)
 			if [[ "$no_color" != "1" ]]; then
 				c1=$(getColor 'white') # White
