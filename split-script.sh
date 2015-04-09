@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 dir=screenfetch-split
 script=screenfetch-dev
@@ -25,9 +25,13 @@ for f in xx* ; do
 	echo "" >> aa_$name
 done
 
+
+# merge.sh
 cat << EOF > merge.sh
-#!/bin/sh
+#!/bin/sh -e
+
 script=screenfetch-dev
+
 cp \${script}_part1 \${script}
 # use "cat \`ls aa_*\`" instead of "cat aa_*" to ignore case pattern
 cat \`ls aa_*\` \${script}_part2 >> \${script}
@@ -35,3 +39,32 @@ chmod a+x \${script}
 EOF
 chmod a+x merge.sh
 
+
+# source.sh
+cat << EOF > source.sh
+#!/bin/sh -e
+
+if [ x"\${1}" = x ]; then
+    prefix=/usr/share/screenfetch
+else
+    prefix="\${1}"
+fi
+
+script=screenfetch-dev
+
+cp \${script}_part1 \${script}
+sed -i "s@asciiText () {@asciiText () {\n\tprefix=\"\${prefix}\"@" \${script}
+
+for f in \`ls aa_*\`; do
+	printf "\t\t" >> \${script}
+    head -n1 \${f} | sed 's/^[ \t]*//' >> \${script}
+    echo "\t\t\tsource \"\\\${prefix}/\${f}\" ;;" >> \${script}
+    tail -n+2 \${f} | head -n-2 > \${f}.new
+    rm \${f} && mv \${f}.new \${f}
+done
+
+cat \${script}_part2 >> \${script}
+sed -i '/@ASCII_ARTS_/d' \${script}
+chmod a+x \${script}
+EOF
+chmod a+x source.sh
