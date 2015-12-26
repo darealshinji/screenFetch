@@ -827,6 +827,7 @@ detectdistro () {
 		tinycore|tinycore*linux) distro="TinyCore" ;;
 		cygwin) distro="Cygwin" ;;
 		haiku) distro="Haiku" ;;
+		umbrella*unix*|umbrella*corporation) distro="Umbrella Unix"; distro_more="Umbrella Unix 2.1.7" ;;
 	esac
 	verboseOut "Finding distro...found as '${distro} ${distro_release}'"
 }
@@ -847,6 +848,9 @@ detecthost () {
 detectkernel () {
 	kernel=( $(uname -srm) )
 	kernel="${kernel[${#kernel[@]}-1]} ${kernel[@]:0:${#kernel[@]}-1}"
+	if [[ ${distro}="Umbrella Unix" ]]; then
+		kernel="generic $(uname -m) Umbrella Unix"
+	fi
 	verboseOut "Finding kernel version...found as '${kernel}'"
 }
 # Kernel Version Detection - End
@@ -960,6 +964,9 @@ detectpkgs () {
 				haikualpharelease="yes"
 				pkgs=$(installoptionalpackage -l | sed -n '3p' | wc -w)
 			fi
+		;;
+		'Umbrella Unix')
+			pkgs="top secret"
 		;;
 	esac
 	verboseOut "Finding current package count...found as '$pkgs'"
@@ -1282,6 +1289,10 @@ detectshell () {
 
 	if [[ -n $shell_version_data ]];then
 		shell_type="$shell_type $shell_version_data"
+	fi
+
+	if [[ ${distro} = "Umbrella Unix" ]]; then
+		shell_type="27C-L2-5"
 	fi
 
 	myShell=${shell_type}
@@ -3882,6 +3893,42 @@ asciiText () {
 "${c1}                             e  %s")
 		;;
 
+		"Umbrella Unix")
+			if [[ "$no_color" != "1" ]]; then
+				c1=$(getColor 'red') # Red
+				c2=$(getColor 'white') # White
+			fi
+			if [ -n "${my_lcolor}" ]; then c1="${my_lcolor}"; fi
+			startline="1"
+			fulloutput=("${c1}                                        "
+"${c2}            .${c1},xkkkkkkkkkko,${c2}.            %s"
+"${c2}          .;::${c1}ckkkkkkkkkxj${c2}::,.         %s"
+"${c2}        .;:::::${c1}lkkkkkkkkc${c2}:::::,.       %s"
+"${c2}      .;::::::::${c1}dkkkkkko${c2}::::::::;.     %s"
+"${c2}    .;:::::::::::${c1}xkkkkd${c2}:::::::::::;.   %s"
+"${c1}  'lls${c2}:::::::::::${c1}ckkkk${c2}:::::::::::::${c1}cl. %s"
+"${c1}  ckkkkxdols${c2}::::::${c1}okkl${c2}:::::::${c1}ojdxkkkk; %s"
+"${c1}  ckkkkkkkkkkxdlc${c2}::${c1}xd${c2}::${c1}cldxkkkkkkkkkk; %s"
+"${c1}  ckkkkkkkkkkkkkkxdkxdxkkkkkkkkkkkkkk; %s"
+"${c1}  ckkkkkkkkxdols'${c2};:${c1}db${c2}::${c1}'clodxkkkkkkkk; %s"
+"${c1}  ckkxdos${c2}:::::::::${c1}xkkx${c2}::::::::${c1}clodxkk; %s"
+"${c1}   '${c2}:::::::::::::${c1}okkkko${c2}:::::::::::::${c1}'  %s"
+"${c2}     .;:::::::::${c1}ckkkkkkc${c2}:::::::::;.    %s"
+"${c2}       .;:::::::${c1}kkkkkkkk${c2}:::::::;.      %s"
+"${c2}         .;::::${c1}dkkkkkkkkd${c2}::::;.        %s"
+"${c2}           .,:${c1}lkkkkkkkkkko${c2}:;.          %s"
+"${c2}             .${c1}dkkkkkkkkkkk${c2}.            %s"
+     "                                       %s"
+     "                                       %s"
+     "                                       %s"
+"${c2}  SECURITY WARNING: Anything viewed beyond this screen is covered %s"
+"${c2}  by the Umbrella Corporation Security Agreement. Unauthorized use %s"
+"${c2}  tampering or recording will be punished under Umbrella %s"
+"${c2}  Coproration's Treason and Terrorism Directive (Article 12, %s"
+"${c2}  Paragraph 19, Section C). %s"
+     "%s")
+		;;
+
 		*)
 			if [ "$(echo "${kernel}" | grep 'Linux' )" ]; then
 				if [[ "$no_color" != "1" ]]; then
@@ -4076,7 +4123,7 @@ infoDisplay () {
 		"Arch Linux - Old"|"Fedora"|"Korora"|"Chapeau"|"Mandriva"|"Mandrake"|"Chakra"|"ChromeOS"|"Sabayon"|"Slackware"|"Mac OS X"|"Trisquel"|"Kali Linux"|"Jiyuu Linux"|"Antergos"|"KaOS"|"Logos"|"gNewSense"|"NixOS"|"SailfishOS") labelcolor=$(getColor 'light blue');;
 		"Arch Linux"|"Frugalware"|"Mageia"|"Deepin"|"CRUX") labelcolor=$(getColor 'light cyan');;
 		"Mint"|"LMDE"|"openSUSE"|"LinuxDeepin"|"DragonflyBSD"|"Manjaro"|"Manjaro-tree"|"Android"|"Void") labelcolor=$(getColor 'light green');;
-		"Ubuntu"|"FreeBSD"|"FreeBSD - Old"|"Debian"|"Raspbian"|"BSD"|"Red Hat Enterprise Linux"|"Peppermint"|"Cygwin"|"Fuduntu"|"Scientific Linux"|"DragonFlyBSD"|"BackTrack Linux") labelcolor=$(getColor 'light red');;
+		"Ubuntu"|"FreeBSD"|"FreeBSD - Old"|"Debian"|"Raspbian"|"BSD"|"Red Hat Enterprise Linux"|"Peppermint"|"Cygwin"|"Fuduntu"|"Scientific Linux"|"DragonFlyBSD"|"BackTrack Linux"|"Umbrella Unix") labelcolor=$(getColor 'light red');;
 		"CrunchBang"|"Solus"|"Viperr"|"elementary"*) labelcolor=$(getColor 'dark grey');;
 		"Gentoo"|"Parabola GNU/Linux-libre"|"Funtoo"|"Funtoo-text"|"BLAG") labelcolor=$(getColor 'light purple');;
 		"Haiku") labelcolor=$(getColor 'green');;
