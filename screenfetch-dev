@@ -189,7 +189,7 @@ detectColors() {
 	my_hcolor=$(colorNumberToCode "${my_hcolor}")
 }
 
-supported_distros="Alpine Linux, Antergos, Arch Linux (Old and Current Logos), BLAG, BunsenLabs, CentOS, Chakra, Chapeau, Chrome OS, Chromium OS, CrunchBang, CRUX, Debian, Deepin, Dragora, elementary OS, Evolve OS, Exherbo, Fedora, Frugalware, Fuduntu, Funtoo, Gentoo, gNewSense, Jiyuu Linux, Kali Linux, KaOS, Kogaion, Korora, LinuxDeepin, Linux Mint, LMDE, Logos, Mageia, Mandriva/Mandrake, Manjaro, Mer, Netrunner, NixOS, openSUSE, Oracle Linux, Parabola GNU/Linux-libre, PCLinuxOS, PeppermintOS, Qubes OS, Raspbian, Red Hat Enterprise Linux, Sabayon, SailfishOS, Scientific Linux, Slackware, Solus, SteamOS, TinyCore, Trisquel, Ubuntu, Viperr and Void."
+supported_distros="Alpine Linux, Antergos, Arch Linux (Old and Current Logos), BLAG, BunsenLabs, CentOS, Chakra, Chapeau, Chrome OS, Chromium OS, CoreOS, CrunchBang, CRUX, Debian, Deepin, Dragora, elementary OS, Evolve OS, Exherbo, Fedora, Frugalware, Fuduntu, Funtoo, Gentoo, gNewSense, Jiyuu Linux, Kali Linux, KaOS, Kogaion, Korora, LinuxDeepin, Linux Mint, LMDE, Logos, Mageia, Mandriva/Mandrake, Manjaro, Mer, Netrunner, NixOS, openSUSE, Oracle Linux, Parabola GNU/Linux-libre, PCLinuxOS, PeppermintOS, Qubes OS, Raspbian, Red Hat Enterprise Linux, Sabayon, SailfishOS, Scientific Linux, Slackware, Solus, SteamOS, TinyCore, Trisquel, Ubuntu, Viperr and Void."
 supported_other="Dragonfly/Free/Open/Net BSD, Haiku, Mac OS X, Windows+Cygwin and Windows+Msys."
 supported_dms="KDE, Gnome, Unity, Xfce, LXDE, Cinnamon, MATE, Deepin, CDE and RazorQt."
 supported_wms="2bwm, 9wm, Awesome, Beryl, Blackbox, Cinnamon, chromeos-wm, Compiz, deepin-wm, dminiwm, dwm, dtwm, E16, E17, echinus, Emerald, FluxBox, FVWM, herbstluftwm, howm, IceWM, KWin, Metacity, monsterwm, Musca, Gala, Mutter, Muffin, Notion, OpenBox, PekWM, Ratpoison, Sawfish, ScrotWM, SpectrWM, StumpWM, subtle, sway, WindowMaker, WMFS, wmii, Xfwm4, XMonad and i3."
@@ -370,9 +370,14 @@ detectdistro () {
 					distro="Chakra"
 					distro_release=""
 					;;
-				"CentOS") distro="CentOS"
+				"CentOS")
+					distro="CentOS"
 					;;
-				"Chapeau") distro="Chapeau"
+				"Chapeau")
+					distro="Chapeau"
+					;;
+				"CoreOS")
+					distro="CoreOS"
 					;;
 				"BunsenLabs")
 					distro=$(source /etc/lsb-release; echo "$DISTRIB_ID")
@@ -610,12 +615,12 @@ detectdistro () {
 					fi
 
 					# Hotfixes
-					[[ "${distro}" == "Void" || "${distro}" == "void" ]] && distro="Void"
+					[[ "${distro}" == "coreos" ]] && distro="CoreOS"
+					[[ "${distro}" == "void" ]] && distro="Void"
 					[[ "${distro}" == "evolveos" ]] && distro="Evolve OS"
-					[[ "${distro}" == "antergos" || "${distro}" == "Antergos" ]] && distro="Antergos"
-					[[ "${distro}" == "logos" || "${distro}" == "Logos" ]] && distro="Logos"
-					[[ "${distro}" == "Arch" ]] && distro="Arch Linux"
-					[[ "${distro}" == "Archarm" || "${distro}" == "archarm" ]] && distro="Arch Linux"
+					[[ "${distro}" == "antergos" ]] && distro="Antergos"
+					[[ "${distro}" == "logos" ]] && distro="Logos"
+					[[ "${distro}" == "Arch" || "${distro}" == "Archarm" || "${distro}" == "archarm" ]] && distro="Arch Linux"
 					[[ "${distro}" == "elementary" ]] && distro="elementary OS"
 					[[ "${distro}" == "Fedora" && -d /etc/qubes-rpc ]] && distro="qubes" # Inner VM
 					[[ "${distro}" == "Ol" || "${distro}" == "ol" ]] && distro="Oracle Linux"
@@ -818,6 +823,7 @@ detectdistro () {
 		chakra) distro="Chakra" ;;
 		chapeau) distro="Chapeau" ;;
 		chrome*|chromium*) distro="Chrome OS" ;;
+		coreos) distro="CoreOS" ;;
 		crunchbang) distro="CrunchBang" ;;
 		crux) distro="CRUX" ;;
 		cygwin) distro="Cygwin" ;;
